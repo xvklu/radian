@@ -55,6 +55,7 @@ specs=(
     "java"
     "leiningen java"
     "leiningen-dotfiles -> leiningen"
+    "python -> homebrew"
     "racket -> wget"
     "emacs -> wget"
     "emacs-dotfiles -> emacs"
@@ -163,6 +164,13 @@ fi
 if feature leiningen-dotfiles; then
     ./ensure-not-version-controlled.sh ~/.lein
     ./ensure-symlinked.sh ~/.lein/profiles.clj ../profiles.clj
+fi
+
+### Python ###
+
+if feature python; then
+    ./ensure-installed.sh python --version Python 2.7.12 brew python --require
+    ./ensure-installed.sh python3 --version Python 3.5.2 brew python3 --require
 fi
 
 ### Racket ###
