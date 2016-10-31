@@ -66,6 +66,7 @@
       '(
         ace-jump-mode ; quickly jump to words, characters, or lines onscreen
         aggressive-indent ; keep code correctly indented at all times
+        auctex ; integrated environment for LaTeX development
         cider ; Clojure REPL integration
         clj-refactor ; refactoring tools for Clojure
         clojure-mode ; Clojure indentation and syntax highlighting
