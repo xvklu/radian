@@ -1386,6 +1386,17 @@ following :dependencies to be enabled."
   ;; Tell Company about company-irony.
   (add-to-list 'company-backends 'company-irony))
 
+;; ElDoc integration for Irony.
+(use-package irony-eldoc
+  :dependencies (irony)
+  :quelpa (irony-eldoc
+           :fetcher github
+           :repo "josteink/irony-eldoc")
+  :init
+
+  ;; Enable irony-eldoc.
+  (add-hook 'irony-mode-hook 'irony-eldoc))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Packages: Markdown
 
