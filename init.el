@@ -769,6 +769,32 @@ following :dependencies to be enabled."
 (radian-load-user-config "init.post.local.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Packages: Package management
+
+;; Library for managing Emacs Lisp packages in many different ways.
+(use-package quelpa
+  :config
+
+  ;; Currently, we only use quelpa for packages that are not available
+  ;; from MELPA. So it's a waste of time for quelpa to clone the MELPA
+  ;; repository. (If quelpa somehow managed to clone the MELPA
+  ;; repository in spite of this setting, then this setting will also
+  ;; inhibit the updating of the MELPA repository.)
+  (setq quelpa-checkout-melpa-p nil))
+
+;; Add a :quelpa keyword to `use-package', which allows installing
+;; packages with quelpa.
+(use-package quelpa-use-package
+  :demand t
+  :config
+
+  ;; Allow the :quelpa keyword to work even when
+  ;; `use-package-always-ensure' is enabled. See [1].
+  ;;
+  ;; [1]: https://github.com/quelpa/quelpa-use-package
+  (quelpa-use-package-activate-advice))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Packages: Completion systems
 
 ;; Sorts M-x completions by usage. Automatically used by Ivy if
