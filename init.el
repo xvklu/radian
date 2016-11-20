@@ -1381,6 +1381,27 @@ following :dependencies to be enabled."
 
   :diminish anaconda-mode)
 
+;; Company integration for anaconda-mode.
+(use-package company-anaconda
+  :dependencies (company anaconda-mode)
+  :init
+
+  ;; Enable company-anaconda, so that we get good autocompletion
+  ;; suggestions for Python code.
+  (add-to-list 'company-backends 'company-anaconda)
+
+  :config
+
+  ;; Add a space between the completion candidates and the
+  ;; chevron-enclosed description, so the completions menu doesn't
+  ;; look so crowded.
+  (setq company-anaconda-annotation-function
+        (lambda (candidate)
+          (concat
+           " "
+           (company-anaconda-description-in-chevrons
+            candidate)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Packages: C, C++, Objective-C
 
