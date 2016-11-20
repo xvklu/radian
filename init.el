@@ -1341,6 +1341,26 @@ following :dependencies to be enabled."
 (use-package geiser)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Packages: C, C++, Objective-C
+
+;; General support for C, C++, and Objective-C based on libclang.
+(use-package irony
+  :init
+
+  ;; Enable Irony for C, C++, and Objective-C files.
+  (add-hook 'c-mode-hook 'irony-mode)
+  (add-hook 'c++-mode-hook 'irony-mode)
+  (add-hook 'objc-mode-hook 'irony-mode))
+
+;; Company integration for Irony.
+(use-package company-irony
+  :dependencies (company irony)
+  :init
+
+  ;; Tell Company about company-irony.
+  (add-to-list 'company-backends 'company-irony))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Packages: Markdown
 
 ;; Provides syntax highlighting, indentation, and editing commands for
