@@ -1367,6 +1367,21 @@ following :dependencies to be enabled."
 (use-package geiser)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Packages: Python
+
+;; Integrated development environment for Python.
+(use-package anaconda-mode
+  :init
+
+  ;; Enable anaconda-mode in Python buffers.
+  (add-hook 'python-mode-hook 'anaconda-mode)
+
+  ;; Also enable anaconda-mode's version of ElDoc.
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+
+  :diminish anaconda-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Packages: C, C++, Objective-C
 
 ;; General support for C, C++, and Objective-C based on libclang.
