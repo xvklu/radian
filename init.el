@@ -1761,6 +1761,10 @@ the first keyword in the `use-package' form."
 ;; Provides commands to quickly navigate within and between
 ;; "projects".
 (use-package projectile
+  :quelpa (projectile
+           :fetcher github
+           :repo "raxod502/projectile"
+           :files ("projectile.el"))
   :demand t
   :config
 
@@ -2206,14 +2210,15 @@ the first keyword in the `use-package' form."
   "Construct for the mode line that shows [*] if the buffer
 has been modified, and whitespace otherwise.")
 
-(when (radian-package-enabled-p 'projectile)
-  (defvar mode-line-projectile-project
-    '("["
-      (:eval (projectile-project-name))
-      "]")
-    "Construct for the mode line that shows the current Projectile
-project (or a hyphen if there is no current project) between
-brackets."))
+(defun radian--mode-line-projectile-project ()
+  "Returns a construct for the mode line that shows the current
+Projectile project between brackets, with the appropriate spacing
+on the left. Returns the empty string if Projectile is not
+enabled or if the user is not in a Projectile project."
+  (when (radian-package-enabled-p 'projectile)
+    (let ((name (projectile-project-name)))
+      (unless (equal name "-")
+        (concat " [" name "]")))))
 
 (setq-default mode-line-format
               (list
@@ -2227,13 +2232,10 @@ brackets."))
                "   "
                ;; Show the row and column of point.
                mode-line-position
-               (when (radian-package-enabled-p 'projectile)
-                 (list
-                  " "
-                  ;; Show the current Projectile project.
-                  mode-line-projectile-project))
-               "  "
+               ;; Show the current Projectile project.
+               '(:eval (radian--mode-line-projectile-project))
                ;; Show the active major and minor modes.
+               "  "
                mode-line-modes))
 
 ;; Make `mode-line-position' show the column, not just the row.
